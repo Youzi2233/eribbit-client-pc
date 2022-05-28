@@ -1,12 +1,7 @@
 <template>
   <div class="home-category" @mouseleave="categoryId = null">
     <ul class="menu">
-      <li
-        :class="{ active: categoryId === item.id }"
-        v-for="item in menuList"
-        :key="item.id"
-        @mouseenter="categoryId = item.id"
-      >
+      <li v-for="item in menuList" :key="item.id" @mouseenter="categoryId = item.id">
         <router-link :to="`/category/${item.id}`">{{ item.name }}</router-link>
         <template v-if="item.children">
           <router-link v-for="sub in item.children" :key="sub.id" :to="`/category/sub/${sub.id}`">
@@ -28,7 +23,7 @@
       <!-- 商品 -->
       <ul v-if="currCategory && currCategory.goods">
         <li v-for="item in currCategory.goods" :key="item.id">
-          <router-link to="/">
+          <router-link :to="`/product/${item.id}`">
             <img :src="item.picture" alt="" />
             <div class="info">
               <p class="name ellipsis-2">{{ item.name }}</p>
@@ -59,7 +54,6 @@
 import { computed, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { findBrand } from '@/api/home';
-import XtxSkeleton from '../../../components/library/xtx-skeleton.vue';
 export default {
   name: 'HomeCategory',
   setup() {
@@ -100,7 +94,6 @@ export default {
       currCategory,
     };
   },
-  components: { XtxSkeleton },
 };
 </script>
 
@@ -215,6 +208,13 @@ export default {
           }
         }
       }
+    }
+    .loading {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
   &:hover {

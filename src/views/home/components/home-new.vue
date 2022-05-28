@@ -21,7 +21,6 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
 import HomePanel from './home-panel';
 import HomeSkeleton from './home-skeleton';
 import { findNew } from '@/api/home';

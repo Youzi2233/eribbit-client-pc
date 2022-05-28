@@ -135,7 +135,7 @@ export default {
       }
       // ☆ 点击按钮时，更新按钮禁用状态
       updateDisabledStatus(props.goods.specs, pathMap);
-      // 将你选择的sku信息通知父组件 {skuid, price, oldPrice, inventory, specsTest }
+      // 将你选择的sku信息通知父组件 {skuid, price, oldPrice, inventory, specsText }
       // 1.选择完整的sku组合按钮，才可以拿到这些信息，再提交父组件
       // 2.不是完整的sku组合按钮，提交空对象给父组件
       const validSelectedValues = getSelectedValues(props.goods.specs).filter(v => v);
@@ -149,7 +149,7 @@ export default {
           oldPrice: sku.oldPrice,
           inventory: sku.inventory,
           // 属性名：属性值 属性名：属性值 ...
-          specsTest: sku.specs.reduce((p, c) => `${p} ${c.name}: ${c.valueName}`, '').trim(),
+          specsText: sku.specs.reduce((p, c) => `${p} ${c.name}: ${c.valueName}`, '').trim(),
         });
       } else {
         // 不完整

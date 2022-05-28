@@ -4,6 +4,9 @@
 // vue3.0插件写法要素：导入一个对象，有install函数，默认传入了app应用实例，app基础之上拓展
 
 import defaultImg from '@/assets/images/200.png';
+import Message from './Message';
+import Confirm from './confirm';
+
 // import XtxSkeleton from './xtx-skeleton';
 // import XtxCarousel from './xtx-carousel.vue';
 // import XtxMore from './xtx-more.vue';
@@ -40,6 +43,10 @@ export default {
 
     // 定义指令
     defineDirective(app);
+
+    // 定义一个原型函数
+    app.config.globalProperties.$message = Message;
+    app.config.globalProperties.$confirm = Confirm;
   },
 };
 

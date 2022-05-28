@@ -1,6 +1,7 @@
 // 提供复用逻辑的函数（钩子）
-import { useIntersectionObserver } from '@vueuse/core';
-import { ref } from 'vue';
+import { useIntersectionObserver, useIntervalFn } from '@vueuse/core';
+import { ref, onUnmounted, computed } from 'vue';
+import dayjs from 'dayjs';
 
 /**
  *
@@ -32,4 +33,38 @@ export const useLazyData = apiFn => {
     }
   );
   return { result, target };
+};
+
+/**
+ *
+ * @param {Integer} countdown - 倒计时秒数
+ */
+export const usePayTime = () => {
+  // 倒计时逻辑
+  const time = ref(30 * 60);
+  const timeText = computed(() => {
+    return dayjs.unix(time.value).format('mm分ss秒');
+  });
+  const { pause, resume } = useIntervalFn(
+    () => {
+      time.value--;
+      if (time.value <= 0) {
+        pause();
+      }
+    },
+    1000,
+    false
+  );
+  onUnmounted(() => {
+    pause();
+  });
+  // 开启定时器 countdown - 倒计时秒数
+  const start = countdown => {
+    time.value = countdown;
+    resume();
+  };
+  return {
+    start,
+    timeText,
+  };
 };

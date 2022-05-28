@@ -4,15 +4,15 @@
       <ul>
         <template v-if="profile.token">
           <li>
-            <a href="javascript:;"><i class="iconfont icon-user"></i>{{ profile.account }}</a>
+            <router-link to="/member"><i class="iconfont icon-user"></i>{{ profile.account }}</router-link>
           </li>
-          <li><a href="javascript:;">退出登录</a></li>
+          <li><a @click="logout" href="javascript:;">退出登录</a></li>
         </template>
         <template v-else>
-          <li><a href="javascript:;">请先登录</a></li>
+          <li><router-link to="/login">请先登录</router-link></li>
           <li><a href="javascript:;">免费注册</a></li>
         </template>
-        <li><a href="javascript:;">我的订单</a></li>
+        <li><router-link to="/member/order">我的订单</router-link></li>
         <li><a href="javascript:;">会员中心</a></li>
         <li><a href="javascript:;">帮助中心</a></li>
         <li><a href="javascript:;">关于我们</a></li>
@@ -25,6 +25,7 @@
 </template>
 <script>
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 export default {
@@ -36,8 +37,20 @@ export default {
     const profile = computed(() => {
       return store.state.user.profile;
     });
+
+    // 退出登录
+    // 1.清空本地存储信息和vuex的用户信息
+    // 2.跳转登录
+    const router = useRouter();
+    const logout = () => {
+      store.commit('user/setUser', {});
+      // 清空购物车
+      store.commit('cart/setCart', []);
+      router.push('/login');
+    };
     return {
       profile,
+      logout,
     };
   },
 };

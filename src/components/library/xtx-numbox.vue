@@ -35,7 +35,8 @@ export default {
   setup(props, { emit }) {
     //  1. 绑定按钮点击事件
     // 2。 使用vueuse的useVmodel做数据绑定，修改 count 通知父组件更新
-    const count = useVModel(props, 'modelValue', emit);
+    const count = useVModel(props, 'modelValue');
+
     const changeNum = step => {
       // 得到将要改变的值，如果值不合法，终止运行
       const newVal = count.value + step;
