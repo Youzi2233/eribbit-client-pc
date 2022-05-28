@@ -78,7 +78,7 @@ export default {
     const { start, timeText } = usePayTime();
 
     // 支付地址
-    const redirect = encodeURIComponent('http://localhost:8080/#/pay/callback');
+    const redirect = encodeURIComponent('http://eribbit-client-pc.vercel.app/#/pay/callback');
     const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.orderId}&redirect=${redirect}`;
 
     // 支付提示
